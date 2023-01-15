@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
@@ -29,6 +30,9 @@ class NewsUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = NewsSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    def get_object(self):
+        return get_object_or_404(News, pk=self.kwargs.get('news_id'))
+
 
 class CommentListCreateAPIView(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
@@ -58,9 +62,8 @@ class StatusRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = StatusSrializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    def get_object(self):
+        return get_object_or_404(Status, pk=self.kwargs.get('slug'))
 
-# def status_add_to_news(request, slug):
-#     status = get_object_or_404(NewsStatus, slug)
-#     return render(request, status=status)
 
 
