@@ -1,7 +1,6 @@
-import datetime
 from django.db import models
 from django.db.models import Count
-from django.urls import reverse, reverse_lazy
+
 
 from account.models import Author
 
@@ -54,6 +53,7 @@ class NewsStatus(models.Model):
     status = models.ForeignKey(Status, on_delete=models.CASCADE)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     news = models.ForeignKey(News, on_delete=models.CASCADE)
+    unique_together = ('author', 'news')
 
     def __str__(self):
         return f'{self.status.name} '
@@ -63,6 +63,7 @@ class CommentStatus(models.Model):
     status = models.ForeignKey(Status, on_delete=models.CASCADE)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    unique_together = ('author', 'comment')
 
     def __str__(self):
         return f'Статус кментарии {self.status.name} '
