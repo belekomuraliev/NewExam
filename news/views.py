@@ -62,8 +62,7 @@ class StatusRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = StatusSrializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def get_object(self):
-        return get_object_or_404(Status, pk=self.kwargs.get('slug'))
+
 
 
 
